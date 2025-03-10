@@ -1,20 +1,17 @@
-import { Injectable } from '@nestjs/common';
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+}
 
-@Injectable()
 export class PostsService {
-  private posts = [];
+  private posts: Post[] = [];
 
-  create(post: any) {
-    const newPost = { id: this.posts.length + 1, ...post };
-    this.posts.push(newPost);
-    return newPost;
+  create(post: Post) {
+    this.posts.push(post);
   }
 
-  findAll() {
-    return this.posts;
-  }
-
-  findOne(id: number) {
-    return this.posts.find(post => post.id === id);
+  findOne(id: string): Post | undefined {
+    return this.posts.find((post) => post.id === id);
   }
 }

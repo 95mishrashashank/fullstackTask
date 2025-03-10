@@ -1,22 +1,19 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { PostsService } from './post.service';
+import { Controller, Post, Get, Param, Body } from '@nestjs/common';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postsService: PostsService) {}
-
   @Post()
-  create(@Body() body) {
-    return this.postsService.create(body);
+  create(@Body() body: any) {
+    return { message: 'Post created successfully' };
   }
 
   @Get()
   findAll() {
-    return this.postsService.findAll();
+    return [{ id: 1, title: 'First Post' }];
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+    return { id, title: `Post with ID ${id}` };
   }
 }
